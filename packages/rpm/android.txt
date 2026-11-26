@@ -1,0 +1,12 @@
+android-tools
+bc
+bison
+flex
+dwarves
+openssl-devel
+elfutils-libelf-devel
+ncurses-devel
+lz4
+zstd
+xz
+cpio

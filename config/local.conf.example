@@ -1,0 +1,24 @@
+# Local configuration - copy to local.conf and customize
+# This file is gitignored and loaded automatically if present
+
+# Repositories to enable (choose from: rpmfusion, flathub, chrome, vscode, brave, librewolf)
+# REPOS=(rpmfusion flathub chrome vscode)
+
+# RPM package lists to install (files in packages/rpm/*.txt)
+# RPM_LISTS=(base dev desktop)
+
+# Flatpak package lists to install (files in packages/flatpak/*.txt)
+# FLATPAK_LISTS=(utils)
+
+# GPU vendors to install drivers for (auto-detected if empty)
+# GPU_VENDORS=(amd)  # or (intel) or (amd intel)
+
+# Use legacy Intel VA-API driver (for older Intel GPUs, pre-Broadwell)
+# INTEL_LEGACY=false
+
+# Update firmware via fwupdmgr
+# UPDATE_FIRMWARE=true
+
+# Set Google Sans Flex as default system font
+# SET_DEFAULT_FONT=true
+# FONT_SIZE=11

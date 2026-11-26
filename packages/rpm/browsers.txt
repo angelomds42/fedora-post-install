@@ -1,0 +1,3 @@
+google-chrome-stable
+# brave-browser   (repo: brave)
+# librewolf       (repo: librewolf)

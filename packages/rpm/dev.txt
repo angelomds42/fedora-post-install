@@ -1,0 +1,14 @@
+@development-tools
+@c-development
+clang
+lld
+llvm
+cmake
+ninja-build
+ccache
+python3-pip
+pipx
+podman
+podman-compose
+podman-docker
+# code            (repo: vscode)

@@ -1,0 +1,4 @@
+com.github.tchx84.Flatseal
+io.missioncenter.MissionCenter
+com.mattjakeman.ExtensionManager
+it.mijorus.gearlever
