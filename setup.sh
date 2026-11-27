@@ -177,14 +177,16 @@ run_module() {
 # Check if a repo is enabled in config
 is_repo_enabled() {
     local repo=$1
-    [[ " ${REPOS[*]:-} " =~ " $repo " ]]
+    local repos_str=" ${REPOS[*]} "
+    [[ $repos_str =~ [[:space:]]${repo}[[:space:]] ]]
 }
 
 # Check if a package list is enabled in config
 is_list_enabled() {
     local type=$1 list=$2
     local -n var_ref="${type^^}_LISTS"
-    [[ " ${var_ref[*]:-} " =~ " $list " ]]
+    local list_str=" ${var_ref[*]} "
+    [[ $list_str =~ [[:space:]]${list}[[:space:]] ]]
 }
 
 verify_module() {
@@ -197,12 +199,24 @@ verify_module() {
             is_true "$UPDATE_FIRMWARE" && ! command -v fwupdmgr &>/dev/null && { err "system: fwupdmgr not installed"; status=1; }
             ;;
         repos)
-            is_repo_enabled rpmfusion && rpm -q rpmfusion-free-release rpmfusion-nonfree-release &>/dev/null || { err "repos: RPM Fusion missing"; status=1; }
-            is_repo_enabled flathub && flatpak remote-list | grep -q flathub || { err "repos: Flathub not configured"; status=1; }
-            is_repo_enabled chrome && [[ ! -f /etc/yum.repos.d/google-chrome.repo ]] && { err "repos: Chrome repo missing"; status=1; }
-            is_repo_enabled vscode && [[ ! -f /etc/yum.repos.d/vscode.repo ]] && { err "repos: VS Code repo missing"; status=1; }
-            is_repo_enabled brave && [[ ! -f /etc/yum.repos.d/brave-browser.repo ]] && { err "repos: Brave repo missing"; status=1; }
-            is_repo_enabled librewolf && [[ ! -f /etc/yum.repos.d/librewolf.repo ]] && { err "repos: Librewolf repo missing"; status=1; }
+            if is_repo_enabled rpmfusion; then
+                rpm -q rpmfusion-free-release rpmfusion-nonfree-release &>/dev/null || { err "repos: RPM Fusion missing"; status=1; }
+            fi
+            if is_repo_enabled flathub; then
+                flatpak remote-list | grep -q flathub || { err "repos: Flathub not configured"; status=1; }
+            fi
+            if is_repo_enabled chrome; then
+                [[ -f /etc/yum.repos.d/google-chrome.repo ]] || { err "repos: Chrome repo missing"; status=1; }
+            fi
+            if is_repo_enabled vscode; then
+                [[ -f /etc/yum.repos.d/vscode.repo ]] || { err "repos: VS Code repo missing"; status=1; }
+            fi
+            if is_repo_enabled brave; then
+                [[ -f /etc/yum.repos.d/brave-browser.repo ]] || { err "repos: Brave repo missing"; status=1; }
+            fi
+            if is_repo_enabled librewolf; then
+                [[ -f /etc/yum.repos.d/librewolf.repo ]] || { err "repos: Librewolf repo missing"; status=1; }
+            fi
             ;;
         media)
             rpm -q ffmpeg libva libva-utils &>/dev/null || { err "media: base codecs missing"; status=1; }

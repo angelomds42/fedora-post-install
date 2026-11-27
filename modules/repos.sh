@@ -18,7 +18,11 @@ repos::rpmfusion() {
 }
 
 repos::flathub() {
-    flatpak remote-list | grep -q '^fedora' && run sudo flatpak remote-delete fedora || info "fedora flatpak remote not present"
+    if flatpak remote-list | grep -q '^fedora'; then
+        run sudo flatpak remote-delete fedora
+    else
+        info "fedora flatpak remote not present"
+    fi
     run sudo flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
 }
 
