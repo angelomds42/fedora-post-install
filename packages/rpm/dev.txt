@@ -11,4 +11,4 @@ pipx
 podman
 podman-compose
 podman-docker
-# code            (repo: vscode)
+code
